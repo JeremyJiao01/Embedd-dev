@@ -1,0 +1,28 @@
+review_code:
+  description: >
+    审查以下生成的代码，对照需求和设计文档进行逐项检查：
+
+    原始需求：
+    {requirement}
+
+    子任务列表：
+    {task_list}
+
+    模块设计：
+    {design}
+
+    生成的代码：
+    {code}
+
+    审查清单：
+    1. 功能完整性：每个子任务是否都有对应实现
+    2. 接口合规性：是否只调用了设计中列出的接口（用 code_search 验证可疑调用）
+    3. 代码风格：命名、注释、缩进是否与已有代码一致
+    4. 嵌入式安全：数组边界、整数溢出、未初始化变量、资源泄漏
+    5. 头文件：include 是否完整且无多余
+
+    对每个问题标注严重程度：error / warning / suggestion
+    只有存在 error 时才给 revise 结论。
+  expected_output: >
+    审核结论（pass/revise）、问题列表（含严重程度和描述）、审核总结。
+  agent: code_reviewer

@@ -1,0 +1,26 @@
+scout_existing_code:
+  description: >
+    使用 code_search 工具在代码仓中搜索与以下需求相关的已有实现：
+    {requirement}
+
+    列出所有相关的已有函数、模块，说明它们与当前需求的关系（可复用/需修改/无关）。
+  expected_output: >
+    已有代码调研报告：列出相关函数名、文件路径、与需求的关系说明。
+  agent: technical_scout
+
+decompose_requirements:
+  description: >
+    基于以下原始需求和代码调研报告，将需求拆解为子任务列表：
+
+    原始需求：{requirement}
+
+    拆解规则：
+    1. 每个子任务应当是一个可独立实现和测试的功能点
+    2. 如果调研发现已有实现可复用，在子任务中注明"基于 XXX 修改"
+    3. 每个子任务必须有明确的验收标准
+    4. 按优先级排序（high/medium/low）
+  expected_output: >
+    结构化的子任务列表，包含名称、描述、验收标准和优先级。
+  agent: requirements_analyst
+  context:
+    - scout_existing_code

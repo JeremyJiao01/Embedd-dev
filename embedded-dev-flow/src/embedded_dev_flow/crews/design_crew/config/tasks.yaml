@@ -1,0 +1,37 @@
+select_interfaces:
+  description: >
+    根据以下子任务列表，使用 list_api 工具查询代码仓中所有可用的公共接口，
+    然后为每个子任务选择需要调用的接口函数：
+
+    子任务列表：
+    {task_list}
+
+    要求：
+    1. 只选择 list_api 返回的接口，不允许使用未列出的函数
+    2. 说明每个接口在本需求中的具体用途
+    3. 如果发现缺少必要的接口，明确标注"需要新增接口: XXX"
+  expected_output: >
+    每个子任务对应的接口选型结果，包含接口名、签名、用途。
+  agent: interface_selector
+
+design_modules:
+  description: >
+    基于接口选型结果和子任务列表，设计代码模块：
+
+    子任务列表：
+    {task_list}
+
+    审核修改意见（如有）：
+    {review_feedback}
+
+    设计要求：
+    1. 使用 get_snippet 工具查看 2-3 个已有模块的代码，学习代码风格
+    2. 使用 query_graph 工具理解相关函数的调用关系
+    3. 为每个模块编写伪代码，明确调用哪些接口
+    4. 文件命名和函数命名遵循已有代码的风格
+    5. 如果有审核修改意见，必须在设计中体现修改
+  expected_output: >
+    模块设计文档：包含文件名、模块职责、使用的接口列表、伪代码逻辑。
+  agent: logic_designer
+  context:
+    - select_interfaces
